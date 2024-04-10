@@ -30,6 +30,12 @@ git config --global --edit
 
 
 
+# Download the demo script (Optional)
+Set-Location -Path c:\source
+git clone https://github.com/KevinMarquette/GitHubPresentation.git
+
+
+
 # Create a new directory for the project
 $path = "c:\source\demo_repo"
 New-Item -Path $path -ItemType Directory -Force
@@ -49,10 +55,10 @@ code .
 # Add files to the repository
 Set-Content README.md -Value "My Awesome Project"
 @"
-Write-Output 'Building Project'
-Write-Output 'Stage 1'
-Write-Output 'Stage 2'
-Write-Output 'Done Building Project'
+'Building Project'
+'Stage 1'
+'Stage 2'
+'Done Building Project'
 "@ | Set-Content demo.ps1
 
 git status
@@ -72,6 +78,11 @@ git status
 git log
 
 
+# Set up remote repository
+git remote add origin https://github.com/KevinMarquette/demo_repo_1.git
+git push -u origin main
+
+
 # Make a change
 Set-Content README.md -Value "My Awesome Project - Updated"
 
@@ -84,6 +95,7 @@ git commit -m "Update README"
 
 git log
 
+git push
 
 # Make another quick change
 Set-Content README.md -Value "My Awesome Project - Updated 2"
@@ -140,6 +152,8 @@ git commit -a -m "Start Stage 3"
 
 # Work interrupted
 git switch main
+git pull
+
 git switch -c hotfix-stage-1
 code .\demo.ps1  # work on hotfix stage1
 git commit -a -m "Hotfix Stage 1"
@@ -155,37 +169,6 @@ git commit -a -m "Finish Stage 3"
 
 git switch main
 git merge feature-stage-3 -m "Merge feature-stage-3 into main"
+git push
 
 
-
-
-
-
-
-
-git clone https://github.com/KevinMarquette/CodeGolfPresentation.git
-cd .\CodeGolfPresentation\
-ls
-git status
-
-ls
-Set-Content README.md -value "Placeholder File"
-ls
-git status
-git add .\README.md
-git status
-git commit -m "add readme"
-<#
-
-Author identity unknown
-
-*** Please tell me who you are.
-
-Run
-
-  git config --global user.email "kevmar@gmail.com"
-  git config --global user.name "Kevin Marquette"
-
-to set your account's default identity.
-Omit --global to set the identity only in this repository.
-#>
